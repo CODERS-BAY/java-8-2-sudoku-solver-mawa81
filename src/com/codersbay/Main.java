@@ -16,6 +16,10 @@ public class Main {
 
     }
 
+    private static int backtracking() {
+
+    }
+
     private static void goThroughFields(int[][] fieldArray) {
         for (int row = 0; row < fieldArray.length; row++) {
             for (int column = 0; column < fieldArray[row].length; column++) {
@@ -25,15 +29,18 @@ public class Main {
     }
 
     private static boolean checkHorizontal(int[][] fieldArray, int number, int row, int column) {
-        boolean isNotinRow = false;
+        boolean isNotInRow = false;
 
-        return isNotinRow;
+        for (int i = 0; i < fieldArray[row].length; i++) {
+
+        }
+        return isNotInRow;
     }
 
     private static boolean checkVertical(int[][] fieldArray, int number, int row, int column) {
-        boolean isNotinColumn = false;
+        boolean isNotInColumn = false;
 
-        return isNotinColumn;
+        return isNotInColumn;
     }
 
     private static boolean checkMoor(int[][] fieldArray, int number, int row, int column) {
