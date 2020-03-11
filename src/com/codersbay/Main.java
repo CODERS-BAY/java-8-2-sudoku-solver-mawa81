@@ -24,12 +24,16 @@ public class Main {
         }
     }
 
-    private static void checkHorizontal(int[][] fieldArray, int number, int row, int column) {
+    private static boolean checkHorizontal(int[][] fieldArray, int number, int row, int column) {
+        boolean isNotinRow = false;
 
+        return isNotinRow;
     }
 
-    private static void checkVertical(int[][] fieldArray, int number, int row, int column) {
+    private static boolean checkVertical(int[][] fieldArray, int number, int row, int column) {
+        boolean isNotinColumn = false;
 
+        return isNotinColumn;
     }
 
     private static boolean checkMoor(int[][] fieldArray, int number, int row, int column) {
@@ -51,10 +55,10 @@ public class Main {
 
         if (row >= 0 && row < 3 && column >= 0 && column < 3) {
             moorNumber = 1;
-            moorStartRow = 0;
-            moorEndRow = 3;
-            moorStartColumn = 0;
-            moorEndColumn = 3;
+            moorRowStart = 0;
+            moorRowEnd = 3;
+            moorColumnStart = 0;
+            moorColumnEnd = 3;
         } else if (row >= 0 && row < 3 && column >= 3 && column < 6) {
 
         }
