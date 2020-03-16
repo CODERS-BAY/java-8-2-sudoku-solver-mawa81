@@ -8,7 +8,8 @@ Ist ein Sudoku nicht lösbar gebt eine Meldung auf der Konsole aus.
 Eine Beispiel Eingabe: 
 
 ```java
-int[][] sudoku = {{ 8 , 4 , 3 , 0 , 0 , 0 , 2 , 5 , 9 },
+int[][] sudoku = {
+ { 8 , 4 , 3 , 0 , 0 , 0 , 2 , 5 , 9 },
  { 6 , 7 , 9 , 2 , 0 , 5 , 8 , 3 , 1 },
  { 0 , 0 , 2 , 9 , 0 , 3 , 7 , 0 , 0 },
  { 0 , 0 , 0 , 7 , 0 , 2 , 0 , 0 , 0 },

@@ -1,9 +1,11 @@
 package com.codersbay;
 
+import java.util.Arrays;
+
 public class Main {
 
     public static void main(String[] args) {
-        int[][] sudoku = {{8, 4, 3, 0, 0, 0, 2, 5, 9},
+     /*   int[][] sudoku = {{8, 4, 3, 0, 0, 0, 2, 5, 9},
                 {6, 7, 9, 2, 0, 5, 8, 3, 1},
                 {0, 0, 2, 9, 0, 3, 7, 0, 0},
                 {0, 0, 0, 7, 0, 2, 0, 0, 0},
@@ -11,30 +13,74 @@ public class Main {
                 {0, 0, 0, 6, 0, 8, 0, 0, 0},
                 {0, 0, 7, 3, 0, 4, 5, 0, 0},
                 {3, 6, 8, 5, 0, 7, 9, 1, 4},
-                {4, 9, 5, 0, 0, 0, 3, 7, 2}};
+                {4, 9, 5, 0, 0, 0, 3, 7, 2}};*/
 
-        for (int i = 1; i <= 9; i++) {
-            goThroughFields(sudoku, i);
+        int[][] sudoku = {
+                {4, 3, 0, 5, 0, 0, 9, 8, 0},
+                {0, 0, 0, 6, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 4},
+                {9, 0, 0, 1, 0, 0, 0, 0, 0},
+                {3, 7, 0, 0, 0, 0, 0, 1, 0},
+                {6, 4, 0, 2, 0, 0, 0, 7, 0},
+                {0, 0, 2, 0, 0, 5, 0, 0, 0},
+                {0, 0, 0, 0, 8, 3, 1, 0, 5},
+                {0, 8, 0, 0, 0, 0, 4, 0, 0}};
+
+
+        boolean checkOnes = true;
+        while (checkOnes) {
+            checkOnes = checkIfOnlyOneNumberIsPossible(sudoku);
         }
 
     }
 
     private static int backtracking() {
+
+        
         return 0;
     }
 
-    private static void goThroughFields(int[][] fieldArray, int number) {
+    private static boolean checkIfOnlyOneNumberIsPossible(int[][] fieldArray) {
+        boolean checkOnes = false;
         for (int row = 0; row < fieldArray.length; row++) {
             for (int column = 0; column < fieldArray[row].length; column++) {
-                System.out.println(checkHorizontal(fieldArray, number, row, column));
-                System.out.println(checkVertical(fieldArray, number, row, column));
-                System.out.println(checkMoor(fieldArray, number, row, column));
+
+                if (fieldArray[row][column] == 0) {
+                    int countPossibleNumbersPerField = 0;
+                    int tempNumber = -1;
+                    for (int number = 1; number <= fieldArray.length; number++) {
+                        boolean isInHorizon = checkHorizontal(fieldArray, number, row, column);
+                        boolean isInVertical = checkVertical(fieldArray, number, row, column);
+                        boolean isInMoor = checkMoor(fieldArray, number, row, column);
+                        if (isInHorizon && isInVertical && isInMoor) {
+                            countPossibleNumbersPerField++;
+                            tempNumber = number;
+                            // System.out.println(" row= " + row + " col = " + column + " number = " + number +" count= " + countPossibleNumbersPerField);
+                        }
+                    }
+                    if (countPossibleNumbersPerField == 1) {
+                        fieldArray[row][column] = tempNumber;
+                        System.out.println(" row= " + row + " col = " + column + " number = " + tempNumber);
+                        checkOnes = true;
+                    }
+
+                }
+
             }
         }
+        viewField(fieldArray);
+        return checkOnes;
+    }
+
+    private static void viewField(int[][] fieldArray) {
+        for (int row = 0; row < fieldArray.length; row++) {
+            System.out.println(Arrays.toString(fieldArray[row]));
+        }
+        System.out.println();
     }
 
     private static boolean checkHorizontal(int[][] fieldArray, int number, int row, int column) {
-        boolean isNotInRow = false;
+        boolean isNotInRow = true;
 
         for (int i = 0; i < fieldArray[row].length; i++) {
             if (i == column) {
@@ -42,15 +88,17 @@ public class Main {
             }
             if (fieldArray[row][i] == number) {
                 isNotInRow = false;
-            } else {
-                isNotInRow = true;
+                break;
             }
+            /*else {
+                isNotInRow = true;
+            }*/
         }
         return isNotInRow;
     }
 
     private static boolean checkVertical(int[][] fieldArray, int number, int row, int column) {
-        boolean isNotInColumn = false;
+        boolean isNotInColumn = true;
 
         for (int i = 0; i < fieldArray.length; i++) {
             if (i == row) {
@@ -58,15 +106,17 @@ public class Main {
             }
             if (fieldArray[i][column] == number) {
                 isNotInColumn = false;
-            } else {
-                isNotInColumn = true;
+                break;
             }
+            /*else {
+                isNotInColumn = true;
+            }*/
         }
         return isNotInColumn;
     }
 
     private static boolean checkMoor(int[][] fieldArray, int number, int row, int column) {
-        boolean isNotInMoor = false;
+        boolean isNotInMoor = true;
         int moorMax = 3;
         int moorNumber = 0;
         int factorRow = 0;
@@ -126,15 +176,17 @@ public class Main {
         // for (int factor = 0; factor <= moorMax; factor++) {
         for (int moorRow = moorRowStart + factorRow; moorRow < moorMax + factorRow; moorRow++) {
             for (int moorColumn = moorRowStart + factorColumn; moorColumn < moorMax + factorColumn; moorColumn++) {
-                System.out.println(row + " " + column + " " + moorRowStart + " " + moorRowEnd + " " + moorColumnStart + " " + moorColumnEnd);
+
                 if (moorRow == row && moorColumn == column) {
                     continue;
                 }
                 if (fieldArray[moorRow][moorColumn] == number) {
                     isNotInMoor = false;
-                } else {
-                    isNotInMoor = true;
+                    break;
                 }
+                /*else {
+                    isNotInMoor = true;
+                }*/
             }
         }
         // }
